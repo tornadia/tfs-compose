@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  forgottenserver:
+    build:
+     context: .
+     dockerfile: tfs.dockerfile
+    ports:
+     - "7171:7171"
+     - "7172:7172"
+    networks:
+      mynet:
+        ipv4_address: 172.66.0.10
+  mariadb:
+    build:
+     context: .
+     dockerfile: mariadb.dockerfile
+    environment:
+      - MYSQL_DATABASE=forgottenserver
+      - MYSQL_USER=forgotten
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+    command: --default-storage-engine innodb
+    restart: unless-stopped
+    healthcheck:
+      test: mysqladmin -p${MARIADB_ROOT_PASSWORD} ping -h localhost
+      interval: 20s
+      start_period: 10s
+      timeout: 10s
+      retries: 3
+    networks:
+      mynet:
+        ipv4_address: 172.66.0.11
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.66.0.0/24
+
