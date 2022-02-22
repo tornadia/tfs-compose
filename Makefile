@@ -1,7 +1,7 @@
 COMPOSE_FILE := "docker-compose.yml"
 
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
-.PHONY: help all build up start down destroy stop restart run updestroy logs ps stats mlb logs-mlb login-mlb
+.PHONY: help all build up start down destroy stop restart run updestroy logs ps stats
 help: ### Shows this help
 	@awk 'BEGIN {FS = ":.*###"; printf "make \033[36m<command>\033[0m [c=image-name]\n\nUsage:\033[36m\033[0m\n"} /^[$$()% 0-9a-zA-Z_-]+:.*?###/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^###@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 ##
