@@ -1,3 +1,4 @@
 **/.dockerignore
 docker-compose.yml
 mariadb_data
+otserv_data

@@ -1,10 +1,9 @@
 #!/bin/bash
+FILE=""
+FROM_DIR="/otserv/forgottenserver/*"
+TO_DIR="/otserv/local"
 
-opened=0
- 
-echo "Waiting MariaDB to launch on 3306..."
-while ! nc -z 172.66.0.11 3306; do   
-  sleep 0.1 # wait for 1/10 of the second before check again
-done
- 
-echo "MariaDB launched, running TFS"
+if [ -z "$(ls -A $TO_DIR)" ]; then
+    cp -a $FROM_DIR $TO_DIR
+fi
+# rest of the logic

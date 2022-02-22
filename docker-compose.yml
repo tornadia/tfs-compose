@@ -4,8 +4,14 @@ services:
     build:
      context: .
      dockerfile: tfs.dockerfile
+     args:
+       - TFS_REPOSITORY=${TFS_REPOSITORY}
+       - TFS_REPOSITORY_BRANCH=${TFS_REPOSITORY_BRANCH}
+       - TFS_BUILD_DATE=${TFS_BUILD_DATE}
     environment:
       - TFS_WAIT_TIME=${TFS_WAIT_TIME}
+    volumes:
+      - ./otserv_data:/otserv/local
     ports:
      - "7171:7171"
      - "7172:7172"

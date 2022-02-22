@@ -1,3 +1,4 @@
 files/**/*
 !files/.gitkeep
 mariadb_data
+otserv_data
