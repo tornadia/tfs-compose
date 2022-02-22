@@ -56,7 +56,7 @@ timeBetweenExActions = 1000
 
 -- Map
 -- NOTE: set mapName WITHOUT .otbm at the end
-mapName = "savemap"
+mapName = "forgotten"
 mapAuthor = "Komic"
 
 -- Market
