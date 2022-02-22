@@ -36,7 +36,7 @@ RUN chown -R forgotten:forgotten /otserv
 USER forgotten
 
 ## running
-CMD timeout $TFS_WAIT_TIME bash tfs_entrypoint.sh
+CMD timeout $TFS_WAIT_TIME bash tfs_entrypoint.sh && ./tfs
 
 #RUN cd /otserv/source && \
 #    chmod +x autogen.sh && \

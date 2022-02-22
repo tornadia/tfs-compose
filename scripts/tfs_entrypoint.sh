@@ -8,4 +8,3 @@ while ! nc -z 172.66.0.11 3306; do
 done
  
 echo "MariaDB launched, running TFS"
-./tfs
