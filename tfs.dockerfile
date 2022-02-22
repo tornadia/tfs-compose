@@ -8,7 +8,7 @@ RUN apt-get update
 RUN apt-get install -y git cmake build-essential libluajit-5.1-dev libmysqlclient-dev libboost-system-dev libboost-iostreams-dev libboost-filesystem-dev libpugixml-dev libcrypto++-dev libfmt-dev libboost-date-time-dev
 
 # devel tools
-RUN apt-get install -y vim curl wget net-tools telnet
+RUN apt-get install -y vim curl wget net-tools telnet netcat iputils-ping
 
 # workspace
 COPY files/src /otserv/src
@@ -25,6 +25,8 @@ COPY files/key.pem /otserv
 COPY files/data /otserv/data
 COPY env/config.lua /otserv
 
+COPY scripts/tfs_entrypoint.sh /otserv
+RUN chmod +x /otserv/tfs_entrypoint.sh
 
 #Add a user
 RUN useradd forgotten
@@ -34,7 +36,7 @@ RUN chown -R forgotten:forgotten /otserv
 USER forgotten
 
 ## running
-CMD sleep 120 && ./tfs
+CMD timeout $TFS_WAIT_TIME bash tfs_entrypoint.sh
 
 #RUN cd /otserv/source && \
 #    chmod +x autogen.sh && \

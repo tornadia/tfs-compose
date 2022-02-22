@@ -4,6 +4,8 @@ services:
     build:
      context: .
      dockerfile: tfs.dockerfile
+    environment:
+      - TFS_WAIT_TIME=${TFS_WAIT_TIME}
     ports:
      - "7171:7171"
      - "7172:7172"
