@@ -11,6 +11,22 @@ RUN apt-get install -y git cmake build-essential libluajit-5.1-dev libmysqlclien
 ## devel tools
 RUN apt-get install -y vim curl wget net-tools telnet netcat iputils-ping
 
+## debug tools
+#RUN apt-get install -y flex bison
+# RUN apt-get install libdwarf-dev libdw-dev binutils-dev libcap-dev libelf-dev \
+#                 libnuma-dev libperf-dev python2 python2-dev python-setuptools \
+#                 libssl-dev libunwind-dev libdwarf-dev libunwindw zlib1g-dev \
+#                 liblzma-dev libaio-dev
+#COPY tools/ /otserv/tools
+#RUN cd /otserv/tools/perf && make
+#RUN cp /otserv/tools/perf/perf /usr/bin
+
+# RUN apt-get -y install linux-tools-5.8.0-50
+# linux-tools-6.1.21-hardened1-1-hardened
+# linux-tools-`uname -r`
+
+RUN apt install -y gcc gdb
+
 # static image
 FROM corelibs AS coresrc
 ARG TFS_REPOSITORY
@@ -51,6 +67,7 @@ COPY scripts/tfs_waiter.sh /usr/local/bin
 COPY scripts/tfs_entrypoint.sh /usr/local/bin
 COPY scripts/tfs_runner.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/tfs_*
+RUN chown otserv:otserv /usr/local/bin/tfs_*
 
 ## preparing instance
 USER otserv
