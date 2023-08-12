@@ -22,6 +22,10 @@ rm: ### Destroys specified container
 	docker-compose -f $(COMPOSE_FILE) down -v $(c)
 restart: ### Restarts specified container
 	make stop c=$(c); make up c=$(c)
+debug:
+	make up c=mariadb
+	make down c=forgottenserver
+	docker-compose -f docker-compose.yml run forgottenserver bash -c "cd build/ && make -j$(nproc) && mv tfs .. && cd .. && gdb tfs; bash"
 updestroy: ### Brings up a container and destroys it afterwards
 	docker-compose -f $(COMPOSE_FILE) up $(c); docker-compose -f $(COMPOSE_FILE) down -v $(c)
 logs: ### Bring up logs for app

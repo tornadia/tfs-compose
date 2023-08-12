@@ -25,7 +25,14 @@ RUN apt-get install -y vim curl wget net-tools telnet netcat iputils-ping
 # linux-tools-6.1.21-hardened1-1-hardened
 # linux-tools-`uname -r`
 
+## https://stackoverflow.com/questions/7724569/debug-vs-release-in-cmake
+## backtrace
 RUN apt install -y gcc gdb
+
+## valgrind --leak-check=full ./tfs
+## https://stackoverflow.com/questions/2876357/determine-the-line-of-code-that-causes-a-segmentation-fault
+## https://www.mail-archive.com/kde-bugs-dist@kde.org/msg778974.html
+# RUN apt install -y valgrind
 
 # static image
 FROM corelibs AS coresrc

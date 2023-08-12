@@ -2,26 +2,30 @@ version: "3.9"
 services:
   forgottenserver:
     build:
-     context: .
-     dockerfile: tfs.dockerfile
-     args:
-       - TFS_REPOSITORY=${TFS_REPOSITORY}
-       - TFS_REPOSITORY_BRANCH=${TFS_REPOSITORY_BRANCH}
-       - TFS_BUILD_DATE=${TFS_BUILD_DATE}
+      context: .
+      dockerfile: tfs.dockerfile
+      args:
+        - TFS_REPOSITORY=${TFS_REPOSITORY}
+        - TFS_REPOSITORY_BRANCH=${TFS_REPOSITORY_BRANCH}
+        - TFS_BUILD_DATE=${TFS_BUILD_DATE}
     environment:
       - TFS_WAIT_TIME=${TFS_WAIT_TIME}
     volumes:
       - ./otserv_data:/otserv/local
+    # ulimits:
+    #   nofile:
+    #     soft: "4096"
+    #     hard: "8128"
     ports:
-     - "7171:7171"
-     - "7172:7172"
+      - "7171:7171"
+      - "7172:7172"
     networks:
       mynet:
         ipv4_address: 172.66.0.10
   mariadb:
     build:
-     context: .
-     dockerfile: mariadb.dockerfile
+      context: .
+      dockerfile: mariadb.dockerfile
     environment:
       - MYSQL_DATABASE=forgottenserver
       - MYSQL_USER=forgotten
@@ -45,5 +49,4 @@ networks:
     driver: bridge
     ipam:
       config:
-      - subnet: 172.66.0.0/24
-
+        - subnet: 172.66.0.0/24
